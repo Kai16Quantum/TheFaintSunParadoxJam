@@ -1,7 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dd66y5icumiay"]
+[gd_scene load_steps=14 format=3 uid="uid://dd66y5icumiay"]
 
 [ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_nloao"]
 [ext_resource type="Script" path="res://Instances/Enemy.gd" id="2_3l4tg"]
+[ext_resource type="Script" path="res://Instances/AI/AI.gd" id="3_varye"]
+[ext_resource type="Script" path="res://Instances/AI/Wander.gd" id="4_g7jot"]
+[ext_resource type="Script" path="res://Instances/AI/Follow.gd" id="5_2hd8y"]
+[ext_resource type="Script" path="res://Instances/AI/Idle.gd" id="6_28oi5"]
+[ext_resource type="Script" path="res://Instances/AI/Patrol.gd" id="7_rno3w"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixtvp"]
 load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
@@ -11,8 +16,6 @@ atlas = SubResource("CompressedTexture2D_ixtvp")
 region = Rect2(90, 70, 10, 10)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4q1fu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ptxpn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_swfl4"]
 
@@ -32,17 +35,37 @@ autostart = true
 
 [node name="ShootButton" type="Button" parent="." index="5"]
 offset_left = -4.0
-offset_top = -3.0
+offset_top = -4.0
 offset_right = 4.0
-offset_bottom = 5.0
+offset_bottom = 4.0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxEmpty_4q1fu")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ptxpn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_swfl4")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ffgv0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_b7n5r")
 button_mask = 2
 flat = true
 
-[connection signal="timeout" from="CheckIfPlayerTimer" to="." method="_on_check_if_player_timer_timeout"]
+[node name="AI" type="Node" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_varye")
+initial_state = NodePath("Patrol")
+
+[node name="Wander" type="Node" parent="AI" index="0"]
+script = ExtResource("4_g7jot")
+
+[node name="Follow" type="Node" parent="AI" index="1"]
+script = ExtResource("5_2hd8y")
+
+[node name="Idle" type="Node" parent="AI" index="2"]
+script = ExtResource("6_28oi5")
+
+[node name="Patrol" type="Node" parent="AI" index="3"]
+script = ExtResource("7_rno3w")
+patrol_points_relative = [Vector2i(0, 4), Vector2i(0, 0), Vector2i(0, -4)]
+
+[connection signal="timeout" from="Walk" to="AI" method="_on_walk_timeout"]
+[connection signal="timeout" from="CheckIfPlayerTimer" to="AI/Wander" method="_on_check_if_player_timer_timeout"]
+[connection signal="timeout" from="CheckIfPlayerTimer" to="AI/Idle" method="_on_check_if_player_timer_timeout"]
+[connection signal="timeout" from="CheckIfPlayerTimer" to="AI/Patrol" method="_on_check_if_player_timer_timeout"]
+[connection signal="mouse_entered" from="ShootButton" to="." method="_on_shoot_button_mouse_entered"]
 [connection signal="pressed" from="ShootButton" to="." method="_on_shoot_button_pressed"]

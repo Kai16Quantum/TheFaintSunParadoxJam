@@ -4,7 +4,8 @@ class_name GridInstance
 var target_interactable = null
 var walk_array = []
 var next_point = null
-var my_tile_position = position
+var my_tile_position: Vector2i = position
+var starting_tile = Vector2i.ZERO
 @export var max_health: int = 3
 var dead = false
 @onready var health: int = max_health
@@ -14,8 +15,15 @@ var dead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	var parent = get_parent().get_parent().get_parent()
+	var my_tile = parent.get_tile_from_position(position)
+	var my_position = parent.get_global_position_from_tile(my_tile)
+	move_to_tile(my_tile)
+	starting_tile = get_tile_position()
+	ready()
 
+func ready():
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -26,13 +34,15 @@ func _on_tile_map_clicked_tile(relative_cell: Variant) -> void:
 
 func move_to_tile(relative_cell):
 	my_tile_position = get_tile_position()
-	var path = Global.astargrid.get_point_path(my_tile_position, relative_cell)
-	if Global.astargrid && len(path)>1:
-		#global_position = get_parent().get_global_position_from_tile(relative_cell)
-		walk_array = Array(path)
-		walk_array.pop_front() # Remove my tile.
-		walk() #ugly
-		$Walk.start(move_delay)
+	var Astar = Global.astargrid
+	if Astar:
+		var path = Astar.get_point_path(my_tile_position, relative_cell)
+		if Global.astargrid && len(path)>1:
+			#global_position = get_parent().get_global_position_from_tile(relative_cell)
+			walk_array = Array(path)
+			walk_array.pop_front() # Remove my tile.
+			walk() #ugly
+			$Walk.start(move_delay)
 
 func move_action(walk_array):
 	pass
@@ -73,6 +83,7 @@ func take_damage(damage_amount):
 			change_sprite("Dead")
 			dead = true
 			walk_array = []
+			EventBus.publish("add_blood_splatter", [my_tile_position,damage_amount])
 	
 
 func check_if_moving_into_instance():

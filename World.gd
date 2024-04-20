@@ -6,6 +6,7 @@ var astargrid = []
 var changing_room = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomize()
 	EventBus.subscribe("move_to_room_direction", self, "on_move_to_room_direction")
 	
 	astargrid = AStarGrid2D.new()
@@ -15,9 +16,16 @@ func _ready() -> void:
 	
 	for solid_tile in StaticTiles:
 		astargrid.set_point_solid(solid_tile)
+	for solid_object in $Props.get_children():
+		var solid_ground = get_tile_from_position(solid_object.global_position)
+		astargrid.set_point_solid(solid_ground)
+		if solid_object.get("extra_points_relative"):
+			if len(solid_object.extra_points_relative) > 0:
+				for point in solid_object.extra_points_relative:
+					astargrid.set_point_solid(solid_ground+point)
+		
 	
 	Global.astargrid = astargrid
-	$Instances/Ally/Player.global_position = WalkableTiles[5]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -48,12 +56,17 @@ func get_global_position_from_tile(relative_cell):
 	return global_pos
 
 
-func on_move_to_room_direction(target_direction):
+func on_move_to_room_direction(flags):
+	var target_position = flags[0]
+	var target_direction = flags[1]
 	if !changing_room:
 		var screen_tween = create_tween()
 		screen_tween.tween_property($CurrentScene, "position", 
-		$CurrentScene.position+get_viewport_rect().size*Vector2(target_direction)/7.0, 2.5)
-		$Instances/Ally/Player.move_to_tile($Instances/Ally/Player.my_tile_position + Vector2i(target_direction*3.0))
+		target_position, 1.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+		#Let's normalize it.
+		var normalized_direction = target_direction*2
+		var move_direction = Vector2i(normalized_direction.x,normalized_direction.y)
+		$Instances/Ally/Player.move_to_tile($Instances/Ally/Player.my_tile_position + move_direction)
 		
 		$Other/ChangeRoomTimer.start()
 		changing_room = true

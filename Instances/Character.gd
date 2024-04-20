@@ -7,13 +7,17 @@ var target_light_scale = Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
 var spike_trap_amount = 0;
 var decoy_trap_amount = 0;
 var explosive_trap_amount = 0;
+var bullet_amount = 1
 #var spike_scene = preload()
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func ready() -> void:
 	EventBus.subscribe("show_interactable", self, "on_show_interactable")
 	EventBus.subscribe("hide_interactable", self, "on_hide_interactable")
+	EventBus.subscribe("hovering_shot", self, "on_hovering_shot")
+	EventBus.subscribe("tried_to_shoot", self, "on_tried_to_shoot")
+	EventBus.subscribe("replenish_ammo", self, "on_replenish_ammo")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,6 +48,11 @@ func on_hide_interactable(old_interactable):
 func after_walk():
 	emit_signal("stopped_walking")
 
+func on_hovering_shot(flags):
+	if bullet_amount > 0:
+		$ShootSprite.show()
+		$ShootSprite/HideTimer.start()
+		$ShootSprite/Label.text = str(bullet_amount)
 
 func _on_light_timer_timeout() -> void:
 	target_light_scale = float(health)/float(max_health)*Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
@@ -63,3 +72,16 @@ func _on_decoy_pressed() -> void:
 
 func _on_explosive_pressed() -> void:
 	explosive_trap_amount = max(0,explosive_trap_amount-1);
+
+
+func _on_hide_timer_timeout() -> void:
+	$ShootSprite.hide()
+
+func on_tried_to_shoot(target_instance):
+	if bullet_amount > 0:
+		target_instance.take_damage(100)
+		bullet_amount -= 1
+		$ShootSprite/Label.text = str(bullet_amount)
+
+func on_replenish_ammo(flags):
+	bullet_amount += 1
