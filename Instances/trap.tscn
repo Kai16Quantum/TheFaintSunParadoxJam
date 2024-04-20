@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bye6n8sowsb4g"]
+
+[ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_3jjrf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lh3ed"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddltm"]
+atlas = SubResource("CompressedTexture2D_lh3ed")
+region = Rect2(100, 11, 10, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1k54x"]
+size = Vector2(6, 6)
+
+[node name="Trap" instance=ExtResource("1_3jjrf")]
+texture = SubResource("AtlasTexture_ddltm")
+
+[node name="Area2D" type="Area2D" parent="." index="1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("RectangleShape2D_1k54x")

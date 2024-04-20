@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cmna25e07o33t"]
+[gd_scene load_steps=12 format=3 uid="uid://cmna25e07o33t"]
 
 [ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_rpxo3"]
 [ext_resource type="Script" path="res://Instances/Character.gd" id="2_16ro7"]
@@ -6,13 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cur4pefkkylha" path="res://Sprites/Light.png" id="3_5cs8a"]
 [ext_resource type="Texture2D" uid="uid://5ytf7wbj7yjv" path="res://Sprites/TrapSelection.png" id="5_r4hai"]
 [ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="6_21usw"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_grcgv"]
-load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sig6m"]
-atlas = SubResource("CompressedTexture2D_grcgv")
-region = Rect2(90, 60, 10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g566g"]
 size = Vector2(10, 10)
@@ -32,9 +25,9 @@ region = Rect2(100, 21, 10, 9)
 atlas = ExtResource("6_21usw")
 region = Rect2(100, 31, 10, 8)
 
-[node name="Player" instance=ExtResource("1_rpxo3")]
-texture = SubResource("AtlasTexture_sig6m")
+[node name="Player" groups=["Player"] instance=ExtResource("1_rpxo3")]
 script = ExtResource("2_16ro7")
+max_health = 10
 
 [node name="InteractSprite" type="Sprite2D" parent="." index="1"]
 visible = false

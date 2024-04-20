@@ -7,6 +7,8 @@ var target_light_scale = Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
 var spike_trap_amount = 0;
 var decoy_trap_amount = 0;
 var explosive_trap_amount = 0;
+#var spike_scene = preload()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,7 +32,7 @@ func _input(event: InputEvent) -> void:
 func move_action(walk_array):
 	emit_signal("show_selection_tile",get_parent().get_parent().get_parent().get_global_position_from_tile(walk_array[-1])) 
 	# SI ME DA TIEMPO LO CAMBIO LO PROMETO
-	
+
 func on_show_interactable(new_interactable):
 	target_interactable = new_interactable
 	$InteractSprite.show()
@@ -42,17 +44,17 @@ func on_hide_interactable(old_interactable):
 func after_walk():
 	emit_signal("stopped_walking")
 
+
 func _on_light_timer_timeout() -> void:
-	target_light_scale = Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
+	target_light_scale = float(health)/float(max_health)*Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
 
 func use_trap(trap_scene):
 	pass
 
 
-
-
 func _on_trap_pressed() -> void:
-	spike_trap_amount = max(0,spike_trap_amount-1);
+	spike_trap_amount = max(0,spike_trap_amount-1)
+	#use_trap(
 
 
 func _on_decoy_pressed() -> void:

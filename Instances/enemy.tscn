@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://dd66y5icumiay"]
+
+[ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_nloao"]
+[ext_resource type="Script" path="res://Instances/Enemy.gd" id="2_3l4tg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixtvp"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkfli"]
+atlas = SubResource("CompressedTexture2D_ixtvp")
+region = Rect2(90, 70, 10, 10)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4q1fu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ptxpn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_swfl4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ffgv0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b7n5r"]
+
+[node name="Enemy" groups=["Enemy"] instance=ExtResource("1_nloao")]
+script = ExtResource("2_3l4tg")
+move_delay = 0.3
+
+[node name="Sprite" parent="." index="0"]
+texture = SubResource("AtlasTexture_tkfli")
+
+[node name="CheckIfPlayerTimer" type="Timer" parent="." index="2"]
+autostart = true
+
+[node name="ShootButton" type="Button" parent="." index="5"]
+offset_left = -4.0
+offset_top = -3.0
+offset_right = 4.0
+offset_bottom = 5.0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4q1fu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ptxpn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_swfl4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ffgv0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b7n5r")
+button_mask = 2
+flat = true
+
+[connection signal="timeout" from="CheckIfPlayerTimer" to="." method="_on_check_if_player_timer_timeout"]
+[connection signal="pressed" from="ShootButton" to="." method="_on_shoot_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://csx7n2d2al0a"]
+[gd_scene load_steps=19 format=3 uid="uid://csx7n2d2al0a"]
 
 [ext_resource type="Texture2D" uid="uid://bk5u0kj8sqlqw" path="res://Sprites/Background.png" id="1_6tcyx"]
 [ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="1_mx6sy"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cs0uqfqieqejd" path="res://Sprites/SelectedTile.png" id="7_cl0ie"]
 [ext_resource type="PackedScene" uid="uid://cmna25e07o33t" path="res://Instances/player.tscn" id="8_oq2d0"]
 [ext_resource type="Script" path="res://Scenes/Label.gd" id="9_xcxnb"]
-[ext_resource type="PackedScene" uid="uid://dd66y5icumiay" path="res://Instances/enemy_1.tscn" id="12_fw7c1"]
+[ext_resource type="PackedScene" uid="uid://dd66y5icumiay" path="res://Instances/enemy.tscn" id="12_fw7c1"]
 
 [sub_resource type="Environment" id="Environment_gopqu"]
 background_mode = 3
@@ -151,13 +151,6 @@ sources/0 = SubResource("TileSetAtlasSource_cfwj1")
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u3lmf"]
 light_mode = 1
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_crgmg"]
-load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_whgrm"]
-atlas = SubResource("CompressedTexture2D_crgmg")
-region = Rect2(90, 60, 10, 10)
-
 [node name="World" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_oeunc")
@@ -168,7 +161,7 @@ environment = SubResource("Environment_gopqu")
 [node name="Other" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Other"]
-color = Color(0.121569, 0.121569, 0.121569, 1)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
 
 [node name="ChangeRoomTimer" type="Timer" parent="Other"]
 wait_time = 5.0
@@ -257,11 +250,10 @@ texture = ExtResource("7_cl0ie")
 [node name="Ally" type="Node2D" parent="Instances"]
 
 [node name="Player" parent="Instances/Ally" instance=ExtResource("8_oq2d0")]
-texture = SubResource("AtlasTexture_whgrm")
 
 [node name="Enemies" type="Node2D" parent="Instances"]
 
-[node name="Enemy1" parent="Instances/Enemies" instance=ExtResource("12_fw7c1")]
+[node name="Enemy" parent="Instances/Enemies" instance=ExtResource("12_fw7c1")]
 position = Vector2(-21, -4)
 
 [node name="Traps" type="Node2D" parent="Instances"]
