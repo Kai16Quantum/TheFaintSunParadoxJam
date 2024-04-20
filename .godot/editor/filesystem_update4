@@ -1,0 +1,5 @@
+res://World.tscn
+res://World.gd
+res://Instances/Character.gd
+res://Assets/Global.gd
+res://TileMap.gd

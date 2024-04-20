@@ -1,3 +1,19 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1713549760
+::res://::1713573950
 icon.svg::CompressedTexture2D::8641028494562133671::1713549756::1713549761::1::::<><>::
+TileMap.gd::GDScript::-1::1713571509::0::1::::<>TileMap<>::
+World.gd::GDScript::-1::1713573923::0::1::::<>Node2D<>::
+World.tscn::PackedScene::178990847773398094::1713573950::0::1::::<><>::uid://bk5u0kj8sqlqw::::res://Sprites/Background.png<>uid://37jxkyou1hqo::::res://Sprites/Tileset.png<>res://World.gd<>uid://6tdxe0ym2ijw::::res://Assets/BitPotionExt.ttf<>res://Instances/Character.gd<>res://TileMap.gd<>uid://cs0uqfqieqejd::::res://Sprites/SelectedTile.png
+::res://Assets/::1713573552
+Arbata Compact.otf::FontFile::5326965251682491355::1713560756::1713561124::1::::<><>::
+BitPotionExt.ttf::FontFile::2215300804165319616::1713560853::1713561124::1::::<><>::
+event_bus.gd::GDScript::-1::1713566143::0::1::::<>Node<>::
+Global.gd::GDScript::-1::1713568660::0::1::::<>Node<>::
+QuinqueFive.otf::FontFile::2922340255003459800::1713560787::1713561124::1::::<><>::
+::res://Instances/::1713573950
+Character.gd::GDScript::-1::1713573950::0::1::::<>Sprite2D<>::
+::res://Scenes/::1713561140
+::res://Sprites/::1713574032
+Background.png::CompressedTexture2D::3151499978058976226::1713560970::1713561138::1::::<><>::
+SelectedTile.png::CompressedTexture2D::6089093196983170949::1713574032::1713574032::1::::<><>::
+Tileset.png::CompressedTexture2D::2031935799162191002::1713560533::1713561137::1::::<><>::
