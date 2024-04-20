@@ -1,16 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://pxu051103mct"]
+[gd_scene load_steps=10 format=3 uid="uid://pxu051103mct"]
 
 [ext_resource type="Script" path="res://Instances/GridInstance.gd" id="1_u0dco"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixtvp"]
-load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+[ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="2_ka4yi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aeyd5"]
-atlas = SubResource("CompressedTexture2D_ixtvp")
+atlas = ExtResource("2_ka4yi")
 region = Rect2(90, 60, 10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l5xx8"]
 size = Vector2(72, 64)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixtvp"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
 
 [sub_resource type="Animation" id="Animation_wmw4q"]
 length = 0.001

@@ -1,5 +1,6 @@
-Marker2D
 Node2D
+TextureRect
+Marker2D
 Area2D
 CollisionShape2D
 Sprite2D
@@ -11,5 +12,3 @@ Timer
 Button
 AnimationPlayer
 HBoxContainer
-TextureButton
-VBoxContainer

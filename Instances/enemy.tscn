@@ -8,11 +8,11 @@
 [ext_resource type="Script" path="res://Instances/AI/Idle.gd" id="6_28oi5"]
 [ext_resource type="Script" path="res://Instances/AI/Patrol.gd" id="7_rno3w"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixtvp"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_env2h"]
 load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tkfli"]
-atlas = SubResource("CompressedTexture2D_ixtvp")
+[sub_resource type="AtlasTexture" id="AtlasTexture_as5sa"]
+atlas = SubResource("CompressedTexture2D_env2h")
 region = Rect2(90, 70, 10, 10)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4q1fu"]
@@ -28,7 +28,7 @@ script = ExtResource("2_3l4tg")
 move_delay = 0.3
 
 [node name="Sprite" parent="." index="0"]
-texture = SubResource("AtlasTexture_tkfli")
+texture = SubResource("AtlasTexture_as5sa")
 
 [node name="CheckIfPlayerTimer" type="Timer" parent="." index="2"]
 autostart = true

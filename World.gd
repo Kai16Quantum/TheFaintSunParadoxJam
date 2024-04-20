@@ -12,6 +12,7 @@ func _ready() -> void:
 	astargrid = AStarGrid2D.new()
 	astargrid.size = Vector2i(1000,1000)
 	astargrid.cell_size = Vector2i(1,1)
+	astargrid.diagonal_mode = 2
 	astargrid.update()
 	
 	for solid_tile in StaticTiles:
@@ -64,8 +65,7 @@ func on_move_to_room_direction(flags):
 		screen_tween.tween_property($CurrentScene, "position", 
 		target_position, 1.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 		#Let's normalize it.
-		var normalized_direction = target_direction*2
-		var move_direction = Vector2i(normalized_direction.x,normalized_direction.y)
+		var move_direction = Vector2i(target_direction)
 		$Instances/Ally/Player.move_to_tile($Instances/Ally/Player.my_tile_position + move_direction)
 		
 		$Other/ChangeRoomTimer.start()

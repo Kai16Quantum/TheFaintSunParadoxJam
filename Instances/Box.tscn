@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdqv0cn10m036"]
+
+[ext_resource type="PackedScene" uid="uid://dd66y5icumiay" path="res://Instances/enemy.tscn" id="1_6ka55"]
+
+[node name="Enemy" instance=ExtResource("1_6ka55")]
+
+[connection signal="timeout" from="Walk" to="AI" method="_on_walk_timeout"]

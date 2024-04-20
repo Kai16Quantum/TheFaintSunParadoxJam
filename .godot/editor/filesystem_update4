@@ -18,3 +18,4 @@ res://Instances/AI/Idle.gd
 res://Instances/AI/Patrol.gd
 res://Scenes/load_zone.tscn
 res://Scenes/load_zone.gd
+res://Instances/Box.tscn
