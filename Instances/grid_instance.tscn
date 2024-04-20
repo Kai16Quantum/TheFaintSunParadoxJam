@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://pxu051103mct"]
+
+[ext_resource type="Script" path="res://Instances/GridInstance.gd" id="1_u0dco"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixtvp"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svlas"]
+atlas = SubResource("CompressedTexture2D_ixtvp")
+region = Rect2(90, 60, 10, 10)
+
+[node name="GridInstance" type="Sprite2D"]
+texture = SubResource("AtlasTexture_svlas")
+script = ExtResource("1_u0dco")
+
+[node name="Walk" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="timeout" from="Walk" to="." method="_on_walk_timeout"]

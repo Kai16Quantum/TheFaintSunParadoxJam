@@ -1,12 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://csx7n2d2al0a"]
+[gd_scene load_steps=21 format=3 uid="uid://csx7n2d2al0a"]
 
 [ext_resource type="Texture2D" uid="uid://bk5u0kj8sqlqw" path="res://Sprites/Background.png" id="1_6tcyx"]
 [ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="1_mx6sy"]
 [ext_resource type="Script" path="res://World.gd" id="1_oeunc"]
 [ext_resource type="FontFile" uid="uid://6tdxe0ym2ijw" path="res://Assets/BitPotionExt.ttf" id="2_xudtc"]
-[ext_resource type="Script" path="res://Instances/Character.gd" id="4_ldklb"]
+[ext_resource type="PackedScene" uid="uid://ds16i71cxshkf" path="res://Scenes/load_zone.tscn" id="3_flmw7"]
 [ext_resource type="Script" path="res://TileMap.gd" id="4_o2qpm"]
+[ext_resource type="PackedScene" uid="uid://q00atex0a876" path="res://Scenes/interactable_1.tscn" id="5_d64d4"]
 [ext_resource type="Texture2D" uid="uid://cs0uqfqieqejd" path="res://Sprites/SelectedTile.png" id="7_cl0ie"]
+[ext_resource type="PackedScene" uid="uid://cmna25e07o33t" path="res://Instances/player.tscn" id="8_oq2d0"]
+[ext_resource type="Script" path="res://Scenes/Label.gd" id="9_xcxnb"]
+[ext_resource type="PackedScene" uid="uid://dd66y5icumiay" path="res://Instances/enemy_1.tscn" id="12_fw7c1"]
+
+[sub_resource type="Environment" id="Environment_gopqu"]
+background_mode = 3
+adjustment_enabled = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oplyd"]
 atlas = ExtResource("1_mx6sy")
@@ -15,6 +23,9 @@ region = Rect2(60, 10, 10, 10)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8erm2"]
 atlas = ExtResource("1_mx6sy")
 region = Rect2(50, 10, 10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpcpd"]
+size = Vector2(8, 41)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfwj1"]
 texture = ExtResource("1_mx6sy")
@@ -137,13 +148,46 @@ tile_size = Vector2i(10, 10)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_cfwj1")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_44d7q"]
-atlas = ExtResource("1_mx6sy")
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u3lmf"]
+light_mode = 1
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_crgmg"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whgrm"]
+atlas = SubResource("CompressedTexture2D_crgmg")
 region = Rect2(90, 60, 10, 10)
 
 [node name="World" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_oeunc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gopqu")
+
+[node name="Other" type="Node" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Other"]
+color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[node name="ChangeRoomTimer" type="Timer" parent="Other"]
+wait_time = 5.0
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="HDoor" type="Node2D" parent="Props"]
+position = Vector2(-12, -54)
+
+[node name="SideL" type="Sprite2D" parent="Props/HDoor"]
+position = Vector2(-10, 0)
+texture = SubResource("AtlasTexture_oplyd")
+
+[node name="Main" type="Sprite2D" parent="Props/HDoor"]
+texture = SubResource("AtlasTexture_8erm2")
+
+[node name="SideR" type="Sprite2D" parent="Props/HDoor"]
+position = Vector2(10, 0)
+texture = SubResource("AtlasTexture_oplyd")
 
 [node name="CurrentScene" type="Node2D" parent="."]
 
@@ -152,26 +196,31 @@ zoom = Vector2(7, 7)
 
 [node name="Void" type="Sprite2D" parent="CurrentScene"]
 self_modulate = Color(0, 0, 0, 1)
-scale = Vector2(2.14062, 1.20312)
+scale = Vector2(2.45312, 1.20312)
 texture = ExtResource("1_6tcyx")
 
 [node name="Background" type="Sprite2D" parent="CurrentScene"]
-scale = Vector2(2.14062, 0.914902)
+scale = Vector2(2.45312, 0.914902)
 texture = ExtResource("1_6tcyx")
 
-[node name="HDoor" type="Node2D" parent="CurrentScene"]
-position = Vector2(-12, -54)
+[node name="LoadingZones" type="Node2D" parent="."]
 
-[node name="SideL" type="Sprite2D" parent="CurrentScene/HDoor"]
-position = Vector2(-10, 0)
-texture = SubResource("AtlasTexture_oplyd")
+[node name="LoadZone" parent="LoadingZones" instance=ExtResource("3_flmw7")]
+position = Vector2(128, -9)
 
-[node name="Main" type="Sprite2D" parent="CurrentScene/HDoor"]
-texture = SubResource("AtlasTexture_8erm2")
+[node name="LoadZone2" parent="LoadingZones" instance=ExtResource("3_flmw7")]
+position = Vector2(153, -9)
+trigger_direction = Vector2i(-1, 0)
 
-[node name="SideR" type="Sprite2D" parent="CurrentScene/HDoor"]
-position = Vector2(10, 0)
-texture = SubResource("AtlasTexture_oplyd")
+[node name="CollisionShape2D" parent="LoadingZones/LoadZone2" index="0"]
+position = Vector2(-16, 0.5)
+shape = SubResource("RectangleShape2D_qpcpd")
+
+[node name="Dialogues" type="Node2D" parent="."]
+
+[node name="Interactable1" parent="Dialogues" instance=ExtResource("5_d64d4")]
+position = Vector2(23, 41)
+interaction_text = "We are small."
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(3, 1)
@@ -181,29 +230,47 @@ layer_0/tile_data = PackedInt32Array(-65550, 65536, 2, -14, 65536, 1, 65522, 655
 layer_1/tile_data = PackedInt32Array(-327694, 196608, 3, -262158, 196608, 3, -196622, 196608, 3, -327693, 196608, 3, -327692, 196608, 3, -327691, 196608, 3, -327690, 196608, 3, -327689, 196608, 3, -327688, 196608, 3, -327687, 196608, 3, -327686, 196608, 3, -327685, 196608, 3, -327684, 196608, 3, -393216, 196608, 3, -393215, 196608, 3, -393214, 196608, 3, -393213, 196608, 3, -393212, 196608, 3, -393211, 196608, 3, -393210, 196608, 3, -393209, 196608, 3, -327673, 196608, 3, -262137, 196608, 3, -196601, 196608, 3, -196600, 196608, 3, -196599, 196608, 3, -196598, 196608, 3, -196597, 196608, 3, -196596, 196608, 3, 7, 196608, 3, 8, 196608, 3, 9, 196608, 3, 10, 196608, 3, 11, 196608, 3, 12, 196608, 3, 65543, 196608, 3, 131079, 196608, 3, 196615, 196608, 3, 262151, 196608, 3, 262150, 196608, 3, 262149, 196608, 3, 196613, 196608, 3, 327676, 196608, 3, 327677, 196608, 3, 327678, 196608, 3, 262142, 196608, 3, 196604, 196608, 3, 262140, 196608, 3, 196594, 196608, 3, 196595, 196608, 3, 196596, 196608, 3, 196597, 196608, 3, 196598, 196608, 3, 196599, 196608, 3, 196600, 196608, 3, 196601, 196608, 3, 196602, 196608, 3, 196603, 196608, 3, 131058, 196608, 3, 327679, 589824, 3, 262144, 589824, 3, 262145, 589824, 3, 262146, 589824, 3, 262147, 589824, 3, 262148, 589824, 3)
 script = ExtResource("4_o2qpm")
 
-[node name="Character" type="Sprite2D" parent="."]
-position = Vector2(-2, -4)
-texture = SubResource("AtlasTexture_44d7q")
-script = ExtResource("4_ldklb")
+[node name="Label" type="RichTextLabel" parent="."]
+material = SubResource("CanvasItemMaterial_u3lmf")
+offset_left = -132.0
+offset_top = 61.0
+offset_right = 124.0
+offset_bottom = 82.0
+theme_override_fonts/normal_font = ExtResource("2_xudtc")
+theme_override_font_sizes/normal_font_size = 16
+script = ExtResource("9_xcxnb")
 
-[node name="Walk" type="Timer" parent="Character"]
-wait_time = 0.19
+[node name="Timer" type="Timer" parent="Label"]
+wait_time = 0.05
+
+[node name="DeleteTimer" type="Timer" parent="Label"]
+wait_time = 4.0
 one_shot = true
 
-[node name="Label" type="Label" parent="."]
-offset_left = -103.0
-offset_top = 59.0
-offset_right = 153.0
-offset_bottom = 80.0
-theme_override_fonts/font = ExtResource("2_xudtc")
-theme_override_font_sizes/font_size = 16
-text = "Yet fate's cruel hand, its judgment unkind."
-
 [node name="SelectedTile" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-2, -4)
 texture = ExtResource("7_cl0ie")
 
-[connection signal="clicked_tile" from="TileMap" to="Character" method="_on_tile_map_clicked_tile"]
-[connection signal="show_selection_tile" from="Character" to="." method="_on_character_show_selection_tile"]
-[connection signal="stopped_walking" from="Character" to="." method="_on_character_stopped_walking"]
-[connection signal="timeout" from="Character/Walk" to="Character" method="_on_walk_timeout"]
+[node name="Instances" type="Node2D" parent="."]
+
+[node name="Ally" type="Node2D" parent="Instances"]
+
+[node name="Player" parent="Instances/Ally" instance=ExtResource("8_oq2d0")]
+texture = SubResource("AtlasTexture_whgrm")
+
+[node name="Enemies" type="Node2D" parent="Instances"]
+
+[node name="Enemy1" parent="Instances/Enemies" instance=ExtResource("12_fw7c1")]
+position = Vector2(-21, -4)
+
+[node name="Traps" type="Node2D" parent="Instances"]
+
+[connection signal="timeout" from="Other/ChangeRoomTimer" to="." method="_on_change_room_timer_timeout"]
+[connection signal="clicked_tile" from="TileMap" to="Instances/Ally/Player" method="_on_tile_map_clicked_tile"]
+[connection signal="timeout" from="Label/Timer" to="Label" method="_on_timer_timeout"]
+[connection signal="timeout" from="Label/DeleteTimer" to="Label" method="_on_delete_timer_timeout"]
+[connection signal="show_selection_tile" from="Instances/Ally/Player" to="." method="_on_player_show_selection_tile"]
+[connection signal="stopped_walking" from="Instances/Ally/Player" to="." method="_on_player_stopped_walking"]
+
+[editable path="LoadingZones/LoadZone2"]

@@ -1,51 +1,63 @@
-extends Sprite2D
-
-var my_tile_position = position
-var walk_array = []
-var next_point = null
+extends GridInstance
 
 signal show_selection_tile(target_global_coord)
 signal stopped_walking()
 
+var target_light_scale = Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
+var spike_trap_amount = 0;
+var decoy_trap_amount = 0;
+var explosive_trap_amount = 0;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	EventBus.subscribe("show_interactable", self, "on_show_interactable")
+	EventBus.subscribe("hide_interactable", self, "on_hide_interactable")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	$PointLight2D.scale = lerp($PointLight2D.scale, target_light_scale,0.1)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		$InteractSprite.hide()
+		if is_instance_valid(target_interactable):
+			target_interactable.interact()
+			target_interactable = null
+	if event.is_action_pressed("trap_menu"):
+		$TrapMenu.show()
+
+func move_action(walk_array):
+	emit_signal("show_selection_tile",get_parent().get_parent().get_parent().get_global_position_from_tile(walk_array[-1])) 
+	# SI ME DA TIEMPO LO CAMBIO LO PROMETO
+	
+func on_show_interactable(new_interactable):
+	target_interactable = new_interactable
+	$InteractSprite.show()
+
+func on_hide_interactable(old_interactable):
+	target_interactable = null
+	$InteractSprite.hide()
+
+func after_walk():
+	emit_signal("stopped_walking")
+
+func _on_light_timer_timeout() -> void:
+	target_light_scale = Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
+
+func use_trap(trap_scene):
 	pass
 
-func move_to_tile(relative_cell):
-	my_tile_position = get_tile_position()
-	var path = Global.astargrid.get_point_path(my_tile_position, relative_cell)
-	if Global.astargrid:
-		#global_position = get_parent().get_global_position_from_tile(relative_cell)
-		walk_array = Array(path)
-		walk()
-		$Walk.start()
-		emit_signal("show_selection_tile",get_parent().get_global_position_from_tile(walk_array[-1]))
 
 
-func _on_tile_map_clicked_tile(relative_cell: Variant) -> void:
-	move_to_tile(relative_cell)
 
-func get_tile_position():
-	return get_parent().get_inst_tile(self)
+func _on_trap_pressed() -> void:
+	spike_trap_amount = max(0,spike_trap_amount-1);
 
-func _on_walk_timeout() -> void:
-	walk()
-	if len(walk_array) > 0:
-		$Walk.start()
-	else:
-		emit_signal("stopped_walking")
 
-func walk():
-	if len(walk_array) > 0:
-		next_point = walk_array.pop_front()
-		var pos_tween = create_tween()
-		var next_pos = get_parent().get_global_position_from_tile(next_point)
-		pos_tween.tween_property(self, "global_position", Vector2(next_pos), 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-		print(next_pos)
-	else:
-		emit_signal("stopped_walking")
+func _on_decoy_pressed() -> void:
+	decoy_trap_amount = max(0,decoy_trap_amount-1)
+
+
+func _on_explosive_pressed() -> void:
+	explosive_trap_amount = max(0,explosive_trap_amount-1);

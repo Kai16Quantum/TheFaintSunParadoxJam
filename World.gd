@@ -3,8 +3,11 @@ extends Node2D
 @onready var StaticTiles = get_tilemap(1)
 @onready var WalkableTiles = get_tilemap(0)
 var astargrid = []
+var changing_room = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	EventBus.subscribe("move_to_room_direction", self, "on_move_to_room_direction")
+	
 	astargrid = AStarGrid2D.new()
 	astargrid.size = Vector2i(1000,1000)
 	astargrid.cell_size = Vector2i(1,1)
@@ -14,8 +17,7 @@ func _ready() -> void:
 		astargrid.set_point_solid(solid_tile)
 	
 	Global.astargrid = astargrid
-	$Character.global_position = WalkableTiles[5]
-
+	$Instances/Ally/Player.global_position = WalkableTiles[5]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -46,10 +48,26 @@ func get_global_position_from_tile(relative_cell):
 	return global_pos
 
 
-func _on_character_show_selection_tile(target_global_coord: Variant) -> void:
+func on_move_to_room_direction(target_direction):
+	if !changing_room:
+		var screen_tween = create_tween()
+		screen_tween.tween_property($CurrentScene, "position", 
+		$CurrentScene.position+get_viewport_rect().size*Vector2(target_direction)/7.0, 2.5)
+		$Instances/Ally/Player.move_to_tile($Instances/Ally/Player.my_tile_position + Vector2i(target_direction*3.0))
+		
+		$Other/ChangeRoomTimer.start()
+		changing_room = true
+
+
+func _on_change_room_timer_timeout() -> void:
+	changing_room = false
+
+
+
+func _on_player_show_selection_tile(target_global_coord: Variant) -> void:
 	$SelectedTile.global_position = target_global_coord
 	$SelectedTile.show()
 
 
-func _on_character_stopped_walking() -> void:
+func _on_player_stopped_walking() -> void:
 	$SelectedTile.hide()

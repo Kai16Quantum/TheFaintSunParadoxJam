@@ -3,3 +3,12 @@ res://World.gd
 res://Instances/Character.gd
 res://Assets/Global.gd
 res://TileMap.gd
+res://Scenes/load_zone.gd
+res://Scenes/load_zone.tscn
+res://Scenes/interactable_1.tscn
+res://Scenes/interactable.gd
+res://Scenes/Label.gd
+res://Instances/GridInstance.gd
+res://Instances/player.tscn
+res://Instances/grid_instance.tscn
+res://Instances/enemy_1.tscn
