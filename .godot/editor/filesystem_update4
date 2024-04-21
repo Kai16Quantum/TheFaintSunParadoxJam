@@ -23,3 +23,8 @@ res://Instances/EnemyMedium.tscn
 res://Instances/Box.gd
 res://Instances/KeyCard.gd
 res://Instances/RayMachine.gd
+res://game.tscn
+res://Assets/Intro/intro.tscn
+res://Assets/Intro/intro.gd
+res://game.gd
+res://default_bus_layout.tres

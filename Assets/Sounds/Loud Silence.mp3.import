@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cqamir66tt4ci"
+path="res://.godot/imported/Loud Silence.mp3-657511a3e194405f7b3b7f31c555e921.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Loud Silence.mp3"
+dest_files=["res://.godot/imported/Loud Silence.mp3-657511a3e194405f7b3b7f31c555e921.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

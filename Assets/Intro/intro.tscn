@@ -1,0 +1,399 @@
+[gd_scene load_steps=20 format=3 uid="uid://8ymso5l5jqtc"]
+
+[ext_resource type="Script" path="res://Assets/Intro/intro.gd" id="1_4655e"]
+[ext_resource type="Texture2D" uid="uid://bql7vbm5hj8u" path="res://Assets/Intro/ItchBanner1.png" id="1_kgywt"]
+[ext_resource type="AudioStream" uid="uid://f3vrhsxm3kag" path="res://Assets/Intro/error_004.ogg" id="2_esm86"]
+[ext_resource type="Texture2D" uid="uid://co1el1judlqmw" path="res://Assets/Intro/KaiLetters1.png" id="2_m5eap"]
+[ext_resource type="Texture2D" uid="uid://djytc8sxmgmtl" path="res://Assets/Intro/KaiLetters4.png" id="3_3yjxj"]
+[ext_resource type="AudioStream" uid="uid://bp3p0mqjq1yi1" path="res://Assets/Intro/minimize_006.ogg" id="3_tw63a"]
+[ext_resource type="Texture2D" uid="uid://bq8qoxsgfv5cs" path="res://Assets/Intro/Circle2.png" id="4_3r3k4"]
+[ext_resource type="AudioStream" uid="uid://ccjdl6ilpheox" path="res://Assets/Intro/confirmation_002.ogg" id="4_n7pxx"]
+[ext_resource type="Texture2D" uid="uid://c4yedjeeljjuw" path="res://Assets/Intro/KaiLetters2.png" id="4_ni8fm"]
+[ext_resource type="AudioStream" uid="uid://13bl3nl1pde8" path="res://Assets/Intro/Reggae ident.ogg" id="5_2el80"]
+[ext_resource type="Texture2D" uid="uid://6yg5egmwfn7e" path="res://Assets/Intro/KaiLetters3.png" id="5_kyada"]
+[ext_resource type="Texture2D" uid="uid://cbo0k4r87ghyo" path="res://Assets/Intro/Char.png" id="7_jmjwq"]
+
+[sub_resource type="Animation" id="Animation_2pper"]
+resource_name = "Intro"
+length = 5.0
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KaiLetters4:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.6, 0.8, 1, 1.3, 1.4, 1.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-67, -242), Vector2(-60, 0), Vector2(-55, -17), Vector2(-47, -21), Vector2(-41, -14), Vector2(-41, -14), Vector2(112, -14), Vector2(92, -14)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KaiLetters4:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.5, 1.475, 1.575),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-6.28319, -6.28319, 6.63225, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KaiLetters1:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.325, 1.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("KaiLetters2:scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.325, 1.375),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("KaiLetters3:scale")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.35, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Char:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.35, 0.375, 2.8, 2.85),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.3), Vector2(1, 0.3), Vector2(0, 0.3)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Char/GPUParticles2D:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.575),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_esm86")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_tw63a")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_n7pxx")
+}],
+"times": PackedFloat32Array(0.4, 1.125, 1.475)
+}
+tracks/7/use_blend = true
+tracks/8/type = "audio"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Music")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"clips": [{
+"end_offset": 0.774402,
+"start_offset": 1.58612,
+"stream": ExtResource("5_2el80")
+}],
+"times": PackedFloat32Array(0.0307416)
+}
+tracks/8/use_blend = true
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("KaiLetters4:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.1, 0.35, 0.475, 1.01232, 1.425),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.282353, 0, 1, 1), Color(1, 1, 1, 1), Color(0.858824, 1, 0.54902, 1), Color(0.282353, 0, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Char:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(2.1, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Fade:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 2.55, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/12/type = "method"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath(".")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finished_intro_f"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_e5qag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KaiLetters4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-67, -242)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KaiLetters4:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("KaiLetters1:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("KaiLetters2:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("KaiLetters3:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Char:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Char/GPUParticles2D:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("KaiLetters4:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Char:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Fade:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tbwrg"]
+_data = {
+"Intro": SubResource("Animation_2pper"),
+"RESET": SubResource("Animation_e5qag")
+}
+
+[sub_resource type="Curve" id="Curve_irf5h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.433333, 0.538462), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_70at3"]
+curve = SubResource("Curve_irf5h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x2k83"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 157.3
+initial_velocity_max = 337.08
+gravity = Vector3(0, 50, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_70at3")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4mjo5"]
+
+[node name="Intro" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_4655e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tbwrg")
+}
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_kgywt")
+
+[node name="Char" type="Sprite2D" parent="."]
+position = Vector2(-54, 32)
+texture = ExtResource("7_jmjwq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Char"]
+emitting = false
+amount = 18
+process_material = SubResource("ParticleProcessMaterial_x2k83")
+texture = ExtResource("4_3r3k4")
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.26
+
+[node name="KaiLetters1" type="Sprite2D" parent="."]
+position = Vector2(42.5, -8.5)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_m5eap")
+
+[node name="KaiLetters2" type="Sprite2D" parent="."]
+position = Vector2(60, -9)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("4_ni8fm")
+
+[node name="KaiLetters3" type="Sprite2D" parent="."]
+position = Vector2(76.5, -11.5)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("5_kyada")
+
+[node name="KaiLetters4" type="Sprite2D" parent="."]
+position = Vector2(-67, -242)
+rotation = -6.28319
+texture = ExtResource("3_3yjxj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+
+[node name="Fade" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = -995.0
+offset_top = -770.0
+offset_right = 1035.0
+offset_bottom = 810.0
+texture = SubResource("PlaceholderTexture2D_4mjo5")

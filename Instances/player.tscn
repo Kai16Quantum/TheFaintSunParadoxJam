@@ -34,7 +34,8 @@ script = ExtResource("2_16ro7")
 max_health = 1000
 
 [node name="InteractSprite" type="Sprite2D" parent="." index="1"]
-z_index = 365
+visible = false
+z_index = 30
 position = Vector2(0, -9)
 texture = ExtResource("2_ww8l2")
 
@@ -119,6 +120,8 @@ stretch_mode = 3
 [node name="Sprite2D2" type="Sprite2D" parent="TrapMenu/Explosive" index="0"]
 position = Vector2(6, 19)
 texture = SubResource("AtlasTexture_dvso6")
+
+[node name="WalkSFX" type="AudioStreamPlayer2D" parent="." index="12"]
 
 [connection signal="timeout" from="ShootSprite/HideTimer" to="." method="_on_hide_timer_timeout"]
 [connection signal="timeout" from="LightTimer" to="." method="_on_light_timer_timeout"]

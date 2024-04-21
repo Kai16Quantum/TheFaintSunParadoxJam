@@ -29,6 +29,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func play_intro():
+	$Other/Intro.play("Intro")
+
 func set_blocking_node(solid_object, boolean = true):
 	var solid_ground = get_tile_from_position(solid_object.global_position)
 	astargrid.set_point_solid(solid_ground,boolean)

@@ -1,0 +1,4 @@
+[gd_resource type="AudioBusLayout" format=3 uid="uid://dibuqe37n2vl4"]
+
+[resource]
+bus/0/send = &"VoiceOver1"

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://w1gximg8ji4g"
+path="res://.godot/imported/Circuit Hums.mp3-ff2d13b9b9276f0aa033d1a6dbe8f272.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Circuit Hums.mp3"
+dest_files=["res://.godot/imported/Circuit Hums.mp3-ff2d13b9b9276f0aa033d1a6dbe8f272.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
