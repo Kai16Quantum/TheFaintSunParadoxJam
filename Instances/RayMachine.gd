@@ -14,5 +14,5 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if inst.is_in_group("Player"):
 		inst.take_damage(100)
 
-func on_key_card_collected():
+func on_key_card_collected(flags):
 	queue_free()

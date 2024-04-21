@@ -28,3 +28,4 @@ func _on_shoot_button_pressed() -> void:
 
 func _on_shoot_button_mouse_entered() -> void:
 	EventBus.publish("hovering_shot")
+

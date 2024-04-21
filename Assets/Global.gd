@@ -7,6 +7,8 @@ var alien_word_list = [
 	"ONE", "TWO"
 ]
 var unlocked_alien_word_list = ["ME"]
+var restart_count = 0
+var used_dialogues = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,4 +22,7 @@ func _process(delta: float) -> void:
 func unlock_word(target_word):
 	if unlocked_alien_word_list.find(target_word) == -1:
 		unlocked_alien_word_list.append(target_word)
-	
+
+func use_dialogue(dialogue_name):
+	if !(dialogue_name in used_dialogues):
+		used_dialogues.append(dialogue_name)

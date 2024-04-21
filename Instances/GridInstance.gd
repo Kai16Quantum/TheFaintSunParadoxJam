@@ -71,6 +71,7 @@ func collide_with_entity(entity):
 
 func melee_attack(instance):
 	if !attack_cooldown:
+		$AttackSFX.play()
 		attack_cooldown = true
 		$AnimationPlayer.play("melee")
 		instance.take_damage(1)
@@ -83,6 +84,8 @@ func take_damage(damage_amount):
 		var new_health = health-damage_amount
 		health = max(0,new_health)
 		take_damage_action()
+		$Sprite.material.set("shader_parameter/active", true)
+		$HitShaderTimer.start()
 		if new_health <= 0:
 			dead_action()
 			change_sprite("Dead")
@@ -99,7 +102,7 @@ func take_damage_action():
 
 func talk(talk_string, talk_audio = null):
 	if (talk_string != ""):
-		EventBus.publish("show_text", [talk_string, talk_audio, is_in_group("Enemy")])
+		EventBus.publish("show_text", [[talk_string], talk_audio, is_in_group("Enemy")])
 
 func check_if_moving_into_instance():
 	var groups = ["Player", "Enemy"]
@@ -146,11 +149,12 @@ func walk():
 			#Let's check if the next point is an instance
 			var inst_collide = check_if_moving_into_instance()
 			if !inst_collide:
+				$WalkSFX.play()
 				var pos_tween = create_tween()
 				var next_pos = get_parent().get_parent().get_parent().get_global_position_from_tile(next_point) # Y ME LA SUDAAA!
 				pos_tween.tween_property(self, "global_position", Vector2(next_pos), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 			else: 
-					collide_with_entity(inst_collide)
+				collide_with_entity(inst_collide)
 		else:
 			after_walk()
 
@@ -159,3 +163,7 @@ func walk():
 
 func _on_attack_cooldown_timeout() -> void:
 	attack_cooldown = false
+
+
+func _on_hit_shader_timer_timeout() -> void:
+	$Sprite.material.set("shader_parameter/active", false)

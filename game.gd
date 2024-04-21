@@ -4,8 +4,14 @@ var WorldScene = preload("res://World.tscn")
 var World = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-
+	EventBus.subscribe("reset_loop", self, "on_reset_loop")
+	World = WorldScene.instantiate()
+	add_child(World)
+	$GameMusic.play()
+	World.play_intro()
+	$Camera2D2.queue_free()
+	
+	var reset_tween = create_tween()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -13,13 +19,31 @@ func _process(delta: float) -> void:
 
 
 func _on_intro_finished_intro() -> void:
-	$GameIntro/Fade.show()
-	$AnimationPlayer.play("Begin")
-	remove_child($Intro)
+	#$GameIntro/Fade.show()
+	#$AnimationPlayer.play("Begin")
+	#remove_child($Intro)
+	#World = WorldScene.instantiate()
+	#add_child(World)
+	#$GameMusic.play()
+	#$Camera2D2.queue_free()
+	pass
+
+func on_reset_loop(flags):
+	$RestartTimer.start()
+	
+
+func reset_world():
+	Global.restart_count += 1
+	remove_child(World)
+	World.queue_free()
 	World = WorldScene.instantiate()
 	add_child(World)
-	$GameMusic.play()
-	$Camera2D2.queue_free()
+	World.play_intro()
+	World.get_node("Other/Intro").speed_scale = 4.0
 
 func play_game_intro():
 	World.play_intro()
+
+
+func _on_restart_timer_timeout() -> void:
+	reset_world()

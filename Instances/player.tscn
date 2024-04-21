@@ -1,14 +1,32 @@
-[gd_scene load_steps=15 format=3 uid="uid://cmna25e07o33t"]
+[gd_scene load_steps=22 format=3 uid="uid://cmna25e07o33t"]
 
 [ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_rpxo3"]
 [ext_resource type="Script" path="res://Instances/Character.gd" id="2_16ro7"]
 [ext_resource type="Texture2D" uid="uid://qtcnti8bxjq2" path="res://Sprites/Interact.png" id="2_ww8l2"]
 [ext_resource type="Texture2D" uid="uid://cur4pefkkylha" path="res://Sprites/Light.png" id="3_5cs8a"]
+[ext_resource type="Shader" path="res://Instances/HitShader.gdshader" id="3_wtxer"]
 [ext_resource type="Texture2D" uid="uid://bk5u0kj8sqlqw" path="res://Sprites/Background.png" id="4_ep05b"]
 [ext_resource type="Texture2D" uid="uid://n8tha3404wmj" path="res://Sprites/Shoot.png" id="4_t4x1t"]
 [ext_resource type="Texture2D" uid="uid://5ytf7wbj7yjv" path="res://Sprites/TrapSelection.png" id="5_r4hai"]
 [ext_resource type="FontFile" uid="uid://bhvurtx1bi8ae" path="res://Assets/QuinqueFive.otf" id="5_vmflr"]
 [ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="6_21usw"]
+[ext_resource type="AudioStream" uid="uid://d34275dqwfinw" path="res://Assets/Sounds/Gun.mp3" id="10_n1d8j"]
+[ext_resource type="AudioStream" uid="uid://clxcmmhjf0lld" path="res://Assets/Sounds/Popup.ogg" id="11_qf0qu"]
+[ext_resource type="AudioStream" uid="uid://d0q6m1uep366o" path="res://Assets/Sounds/ActivatePopup.ogg" id="12_8boh7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_on0hq"]
+resource_local_to_scene = true
+shader = ExtResource("3_wtxer")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fofvg"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7nst"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_fofvg")
+region = Rect2(90, 60, 10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g566g"]
 size = Vector2(10, 10)
@@ -31,7 +49,11 @@ region = Rect2(100, 31, 10, 8)
 [node name="Player" groups=["Player"] instance=ExtResource("1_rpxo3")]
 texture_filter = 1
 script = ExtResource("2_16ro7")
-max_health = 1000
+max_health = 10
+
+[node name="Sprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_on0hq")
+texture = SubResource("AtlasTexture_m7nst")
 
 [node name="InteractSprite" type="Sprite2D" parent="." index="1"]
 visible = false
@@ -61,11 +83,13 @@ theme_override_font_sizes/font_size = 5
 one_shot = true
 
 [node name="LoadHitbox" type="Area2D" parent="." index="3"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LoadHitbox" index="0"]
 shape = SubResource("RectangleShape2D_g566g")
 
 [node name="DoorHitbox" type="Area2D" parent="." index="4"]
+visible = false
 collision_layer = 4
 collision_mask = 4
 
@@ -121,7 +145,21 @@ stretch_mode = 3
 position = Vector2(6, 19)
 texture = SubResource("AtlasTexture_dvso6")
 
-[node name="WalkSFX" type="AudioStreamPlayer2D" parent="." index="12"]
+[node name="CheckInstancesBox" parent="." index="9"]
+visible = false
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." index="13"]
+current = true
+
+[node name="GunSFX" type="AudioStreamPlayer2D" parent="." index="15"]
+stream = ExtResource("10_n1d8j")
+
+[node name="PopupSFX" type="AudioStreamPlayer2D" parent="." index="16"]
+stream = ExtResource("11_qf0qu")
+volume_db = -15.551
+
+[node name="ActivatePopupSFX" type="AudioStreamPlayer2D" parent="." index="17"]
+stream = ExtResource("12_8boh7")
 
 [connection signal="timeout" from="ShootSprite/HideTimer" to="." method="_on_hide_timer_timeout"]
 [connection signal="timeout" from="LightTimer" to="." method="_on_light_timer_timeout"]

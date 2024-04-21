@@ -278,6 +278,7 @@ libraries = {
 zoom = Vector2(7, 7)
 
 [node name="Intro" parent="." instance=ExtResource("1_ss6hs")]
+process_mode = 4
 
 [node name="GameIntro" type="Node2D" parent="."]
 z_index = 100
@@ -314,4 +315,8 @@ volume_db = -4.525
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_f2a6f")
 
+[node name="RestartTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="finished_intro" from="Intro" to="." method="_on_intro_finished_intro"]
+[connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]

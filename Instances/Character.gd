@@ -28,6 +28,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		$InteractSprite.hide()
 		if is_instance_valid(target_interactable):
+			$ActivatePopupSFX.play()
 			target_interactable.interact(self)
 			target_interactable = null
 	if event.is_action_pressed("trap_menu"):
@@ -37,7 +38,11 @@ func move_action(walk_array):
 	emit_signal("show_selection_tile",get_parent().get_parent().get_parent().get_global_position_from_tile(walk_array[-1])) 
 	# SI ME DA TIEMPO LO CAMBIO LO PROMETO
 
+func shake_camera(amount):
+	EventBus.publish("shake_camera",amount)
+
 func on_show_interactable(new_interactable):
+	$PopupSFX.play()
 	target_interactable = new_interactable
 	$InteractSprite.show()
 
@@ -60,6 +65,8 @@ func _on_light_timer_timeout() -> void:
 func use_trap(trap_scene):
 	pass
 
+func dead_action():
+	EventBus.publish("reset_loop", self)
 
 func _on_trap_pressed() -> void:
 	spike_trap_amount = max(0,spike_trap_amount-1)
@@ -79,8 +86,10 @@ func _on_hide_timer_timeout() -> void:
 
 func on_tried_to_shoot(target_instance):
 	if bullet_amount > 0:
+		$GunSFX.play()
 		target_instance.take_damage(100)
 		bullet_amount -= 1
+		shake_camera(0.7)
 		$ShootSprite/Label.text = str(bullet_amount)
 
 func on_replenish_ammo(flags):

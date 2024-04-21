@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 func interact(player_node):
 	activate(player_node)
 	if interaction_text != "":
-		EventBus.publish("show_text", [interaction_text,interaction_audio, enemy])
+		EventBus.publish("show_text", [[interaction_text],interaction_audio, enemy])
 	if unlock_word:
 		Global.unlock_word(unlock_word)
 	if one_shot_dialogue:

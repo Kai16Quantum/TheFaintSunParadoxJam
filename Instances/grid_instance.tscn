@@ -1,10 +1,25 @@
-[gd_scene load_steps=10 format=3 uid="uid://pxu051103mct"]
+[gd_scene load_steps=19 format=3 uid="uid://pxu051103mct"]
 
 [ext_resource type="Script" path="res://Instances/GridInstance.gd" id="1_u0dco"]
-[ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="2_ka4yi"]
+[ext_resource type="Shader" path="res://Instances/HitShader.gdshader" id="1_ysea2"]
+[ext_resource type="AudioStream" uid="uid://dyjqm0xj71bc5" path="res://Assets/Sounds/platesHit1.ogg" id="3_7cilg"]
+[ext_resource type="AudioStream" uid="uid://cdkimg28al5t6" path="res://Assets/Sounds/platesHit2.ogg" id="4_wk47h"]
+[ext_resource type="AudioStream" uid="uid://it04wuh6rpe" path="res://Assets/Sounds/platesHit3.ogg" id="5_n25ui"]
+[ext_resource type="AudioStream" uid="uid://den7djwld4so4" path="res://Assets/Sounds/platesHit4.ogg" id="6_mairr"]
+[ext_resource type="AudioStream" uid="uid://dnqqjn5l6v25" path="res://Assets/Sounds/Punch.ogg" id="7_xvdn5"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aeyd5"]
-atlas = ExtResource("2_ka4yi")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1cit"]
+resource_local_to_scene = true
+shader = ExtResource("1_ysea2")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fofvg"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpufv"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_fofvg")
 region = Rect2(90, 60, 10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l5xx8"]
@@ -179,11 +194,30 @@ _data = {
 "take_damage": SubResource("Animation_3mr5w")
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_57ywp"]
+random_pitch = 1.1
+streams_count = 4
+stream_0/stream = ExtResource("3_7cilg")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_wk47h")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_n25ui")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("6_mairr")
+stream_3/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jc2a1"]
+random_pitch = 1.29
+streams_count = 1
+stream_0/stream = ExtResource("7_xvdn5")
+stream_0/weight = 1.0
+
 [node name="GridInstance" type="Sprite2D"]
 script = ExtResource("1_u0dco")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_aeyd5")
+material = SubResource("ShaderMaterial_j1cit")
+texture = SubResource("AtlasTexture_bpufv")
 
 [node name="Walk" type="Timer" parent="."]
 wait_time = 0.25
@@ -205,5 +239,26 @@ libraries = {
 wait_time = 0.5
 one_shot = true
 
+[node name="WalkSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_57ywp")
+volume_db = -24.779
+max_distance = 120.0
+attenuation = 1.51571
+max_polyphony = 12
+panning_strength = 3.0
+
+[node name="AttackSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_jc2a1")
+volume_db = -6.312
+max_distance = 120.0
+attenuation = 1.51571
+max_polyphony = 12
+panning_strength = 3.0
+
+[node name="HitShaderTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="timeout" from="Walk" to="." method="_on_walk_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="HitShaderTimer" to="." method="_on_hit_shader_timer_timeout"]

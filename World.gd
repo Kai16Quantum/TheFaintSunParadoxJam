@@ -6,6 +6,7 @@ var astargrid = []
 var changing_room = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	play_restart_audio()
 	randomize()
 	EventBus.subscribe("move_to_room_direction", self, "on_move_to_room_direction")
 	EventBus.subscribe("change_door_status",self,"on_change_door_status")
@@ -28,6 +29,29 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func play_restart_audio():
+	var audio_file = null
+	var text = []
+	match Global.restart_count:
+		1: 
+			audio_file = "res://Assets/Sounds/VA/Text2.wav"
+			text = [
+				"I try to remember home.",
+				"The plants, the animals, the breeze, the sea...",
+				"Just life."
+			]
+		3:
+			audio_file = "res://Assets/Sounds/VA/Text6.wav"
+			text = [
+				"As I move forward, with a goal fading in my mind.",
+				"Time goes by, erasing a memory",
+				"that will never",
+				"be again."
+			]
+	if audio_file:
+		EventBus.publish("show_text",[text,load(audio_file),false])
+	
 
 func play_intro():
 	$Other/Intro.play("Intro")
@@ -69,7 +93,7 @@ func on_move_to_room_direction(flags):
 	var target_position = flags[0]
 	var target_direction = flags[1]
 	if !changing_room:
-		var screen_tween = create_tween()
+		var screen_tween = get_tree().create_tween()
 		screen_tween.tween_property($CurrentScene, "global_position", 
 		target_position, 1.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 		#Let's normalize it.
@@ -91,7 +115,6 @@ func _on_change_room_timer_timeout() -> void:
 func _on_player_show_selection_tile(target_global_coord: Variant) -> void:
 	$SelectedTile.global_position = target_global_coord
 	$SelectedTile.show()
-
 
 func _on_player_stopped_walking() -> void:
 	$SelectedTile.hide()

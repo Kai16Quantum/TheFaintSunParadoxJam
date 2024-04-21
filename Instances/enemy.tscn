@@ -1,19 +1,26 @@
-[gd_scene load_steps=15 format=3 uid="uid://dd66y5icumiay"]
+[gd_scene load_steps=17 format=3 uid="uid://dd66y5icumiay"]
 
 [ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_nloao"]
 [ext_resource type="Script" path="res://Instances/Enemy.gd" id="2_3l4tg"]
+[ext_resource type="Shader" path="res://Instances/HitShader.gdshader" id="3_st7vs"]
 [ext_resource type="Script" path="res://Instances/AI/AI.gd" id="3_varye"]
 [ext_resource type="Script" path="res://Instances/AI/Wander.gd" id="4_g7jot"]
 [ext_resource type="Script" path="res://Instances/AI/Follow.gd" id="5_2hd8y"]
 [ext_resource type="Script" path="res://Instances/AI/Idle.gd" id="6_28oi5"]
 [ext_resource type="Script" path="res://Instances/AI/Patrol.gd" id="7_rno3w"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gycyd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpg51"]
+resource_local_to_scene = true
+shader = ExtResource("3_st7vs")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_408w4"]
 load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a4n0x"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uv1y1"]
 resource_local_to_scene = true
-atlas = SubResource("CompressedTexture2D_gycyd")
+atlas = SubResource("CompressedTexture2D_408w4")
 region = Rect2(90, 70, 10, 10)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4q1fu"]
@@ -34,16 +41,17 @@ initial_state = "Wander"
 move_delay = 0.3
 
 [node name="Sprite" parent="." index="0"]
-texture = SubResource("AtlasTexture_a4n0x")
+material = SubResource("ShaderMaterial_vpg51")
+texture = SubResource("AtlasTexture_uv1y1")
 
 [node name="CheckIfPlayerTimer" type="Timer" parent="." index="2"]
 autostart = true
 
 [node name="ShootButton" type="Button" parent="." index="5"]
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxEmpty_4q1fu")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_swfl4")

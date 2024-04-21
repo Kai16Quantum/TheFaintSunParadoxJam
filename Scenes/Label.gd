@@ -2,6 +2,8 @@ extends RichTextLabel
 
 var queued_for_deletion = false
 @export var enemy_text : bool = false
+var string_array = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,12 +15,20 @@ func _process(delta: float) -> void:
 	pass
 
 func on_show_text(flags):
-	var new_text = flags[0]
+	var new_text_array = flags[0]
 	var audio = flags[1]
 	var enemy = flags[2]
 	if (enemy_text == enemy):
-		text = new_text
-		if (enemy):
+		string_array = new_text_array
+		get_next_text()
+		if audio is AudioStream:
+			get_parent().get_node("VA").stream = audio
+			get_parent().get_node("VA").play()
+
+func get_next_text():
+	if len(string_array) > 0:
+		text = string_array.pop_front()
+		if enemy_text:
 			text_to_alien()
 		queued_for_deletion = false
 		hide()
@@ -40,10 +50,13 @@ func text_to_alien():
 	text = new_text
 
 func _on_timer_timeout() -> void:
+	
 	show()
 	visible_characters += 1
 	if visible_characters < len(text):
 		$Timer.start()
+	elif len(string_array) >= 1:
+		$NextTextTimer.start()
 	elif !queued_for_deletion:
 		$DeleteTimer.start()
 		queued_for_deletion = true
@@ -52,3 +65,7 @@ func _on_timer_timeout() -> void:
 func _on_delete_timer_timeout() -> void:
 	text = ""
 	queued_for_deletion = false
+
+
+func _on_next_text_timer_timeout() -> void:
+	get_next_text()
