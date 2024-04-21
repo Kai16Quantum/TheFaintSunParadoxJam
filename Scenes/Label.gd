@@ -53,6 +53,9 @@ func _on_timer_timeout() -> void:
 	
 	show()
 	visible_characters += 1
+	var my_sound_n = clamp(visible_characters, 0, len(get_parsed_text())-1)
+	if (text[my_sound_n] not in [","," "]) && (my_sound_n != len(get_parsed_text())-1):
+		$LetterSound.play()
 	if visible_characters < len(text):
 		$Timer.start()
 	elif len(string_array) >= 1:

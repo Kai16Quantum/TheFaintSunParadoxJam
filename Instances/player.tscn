@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cmna25e07o33t"]
+[gd_scene load_steps=16 format=3 uid="uid://cmna25e07o33t"]
 
 [ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_rpxo3"]
 [ext_resource type="Script" path="res://Instances/Character.gd" id="2_16ro7"]
@@ -7,9 +7,7 @@
 [ext_resource type="Shader" path="res://Instances/HitShader.gdshader" id="3_wtxer"]
 [ext_resource type="Texture2D" uid="uid://bk5u0kj8sqlqw" path="res://Sprites/Background.png" id="4_ep05b"]
 [ext_resource type="Texture2D" uid="uid://n8tha3404wmj" path="res://Sprites/Shoot.png" id="4_t4x1t"]
-[ext_resource type="Texture2D" uid="uid://5ytf7wbj7yjv" path="res://Sprites/TrapSelection.png" id="5_r4hai"]
 [ext_resource type="FontFile" uid="uid://bhvurtx1bi8ae" path="res://Assets/QuinqueFive.otf" id="5_vmflr"]
-[ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="6_21usw"]
 [ext_resource type="AudioStream" uid="uid://d34275dqwfinw" path="res://Assets/Sounds/Gun.mp3" id="10_n1d8j"]
 [ext_resource type="AudioStream" uid="uid://clxcmmhjf0lld" path="res://Assets/Sounds/Popup.ogg" id="11_qf0qu"]
 [ext_resource type="AudioStream" uid="uid://d0q6m1uep366o" path="res://Assets/Sounds/ActivatePopup.ogg" id="12_8boh7"]
@@ -30,21 +28,6 @@ region = Rect2(90, 60, 10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g566g"]
 size = Vector2(10, 10)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rp14a"]
-load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rt8j0"]
-atlas = SubResource("CompressedTexture2D_rp14a")
-region = Rect2(100, 11, 10, 9)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qvrkc"]
-atlas = ExtResource("6_21usw")
-region = Rect2(100, 21, 10, 9)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dvso6"]
-atlas = ExtResource("6_21usw")
-region = Rect2(100, 31, 10, 8)
 
 [node name="Player" groups=["Player"] instance=ExtResource("1_rpxo3")]
 texture_filter = 1
@@ -68,7 +51,7 @@ texture = ExtResource("4_ep05b")
 
 [node name="ShootSprite" type="Sprite2D" parent="." index="2"]
 visible = false
-position = Vector2(0, -11)
+position = Vector2(0, 11)
 texture = ExtResource("4_t4x1t")
 
 [node name="Label" type="Label" parent="ShootSprite" index="0"]
@@ -103,66 +86,21 @@ texture = ExtResource("3_5cs8a")
 wait_time = 0.1
 autostart = true
 
-[node name="TrapMenu" type="HBoxContainer" parent="." index="7"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -38.0
-offset_right = 15.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Trap" type="TextureButton" parent="TrapMenu" index="0"]
-layout_mode = 2
-texture_normal = ExtResource("5_r4hai")
-stretch_mode = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="TrapMenu/Trap" index="0"]
-position = Vector2(6, 20)
-texture = SubResource("AtlasTexture_rt8j0")
-
-[node name="Decoy" type="TextureButton" parent="TrapMenu" index="1"]
-layout_mode = 2
-texture_normal = ExtResource("5_r4hai")
-stretch_mode = 3
-
-[node name="Sprite2D2" type="Sprite2D" parent="TrapMenu/Decoy" index="0"]
-position = Vector2(6, 20)
-texture = SubResource("AtlasTexture_qvrkc")
-
-[node name="Explosive" type="TextureButton" parent="TrapMenu" index="2"]
-layout_mode = 2
-texture_normal = ExtResource("5_r4hai")
-stretch_mode = 3
-
-[node name="Sprite2D2" type="Sprite2D" parent="TrapMenu/Explosive" index="0"]
-position = Vector2(6, 19)
-texture = SubResource("AtlasTexture_dvso6")
-
-[node name="CheckInstancesBox" parent="." index="9"]
+[node name="CheckInstancesBox" parent="." index="8"]
 visible = false
 
-[node name="AudioListener2D" type="AudioListener2D" parent="." index="13"]
+[node name="AudioListener2D" type="AudioListener2D" parent="." index="12"]
 current = true
 
-[node name="GunSFX" type="AudioStreamPlayer2D" parent="." index="15"]
+[node name="GunSFX" type="AudioStreamPlayer2D" parent="." index="14"]
 stream = ExtResource("10_n1d8j")
 
-[node name="PopupSFX" type="AudioStreamPlayer2D" parent="." index="16"]
+[node name="PopupSFX" type="AudioStreamPlayer2D" parent="." index="15"]
 stream = ExtResource("11_qf0qu")
 volume_db = -15.551
 
-[node name="ActivatePopupSFX" type="AudioStreamPlayer2D" parent="." index="17"]
+[node name="ActivatePopupSFX" type="AudioStreamPlayer2D" parent="." index="16"]
 stream = ExtResource("12_8boh7")
 
 [connection signal="timeout" from="ShootSprite/HideTimer" to="." method="_on_hide_timer_timeout"]
 [connection signal="timeout" from="LightTimer" to="." method="_on_light_timer_timeout"]
-[connection signal="pressed" from="TrapMenu/Trap" to="." method="_on_trap_pressed"]
-[connection signal="pressed" from="TrapMenu/Decoy" to="." method="_on_decoy_pressed"]
-[connection signal="pressed" from="TrapMenu/Explosive" to="." method="_on_explosive_pressed"]

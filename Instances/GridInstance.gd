@@ -149,6 +149,7 @@ func walk():
 			#Let's check if the next point is an instance
 			var inst_collide = check_if_moving_into_instance()
 			if !inst_collide:
+				$AnimationPlayer.play("move")
 				$WalkSFX.play()
 				var pos_tween = create_tween()
 				var next_pos = get_parent().get_parent().get_parent().get_global_position_from_tile(next_point) # Y ME LA SUDAAA!

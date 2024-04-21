@@ -20,13 +20,15 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		area.get_parent().take_damage(10);
 
 func show_score():
-	$Score.text = "After %d time loops, you've finally come to the realization that there's
-	not a way out of here." % Global.restart_count
+	$Score.text = "[center]After [color=lime]%d time loops[/color], you've finally come to the realization that there's
+	not a way out of here.[/center]" % Global.restart_count
 	$Score.visible = true
 	
-	$Words.text = "You understand the words:\n"+str(Global.unlocked_alien_word_list)
-
+	var missing_words = len(Global.alien_word_list)-len(Global.unlocked_alien_word_list)
+	$Words.text = "[center]You understand the words:\n"+str(Global.unlocked_alien_word_list)+"\n[color=crimson]%d words
+	remained without meaning.[/color][/center]" % missing_words
+	
 	
 
 func reset_game():
-	pass
+	get_tree().reload_current_scene()

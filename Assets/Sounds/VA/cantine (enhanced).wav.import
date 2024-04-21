@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d3uy0jogbjtqt"
+path="res://.godot/imported/cantine (enhanced).wav-8c9ed680f6fe582b2fc559b6fcd2de16.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/VA/cantine (enhanced).wav"
+dest_files=["res://.godot/imported/cantine (enhanced).wav-8c9ed680f6fe582b2fc559b6fcd2de16.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

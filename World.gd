@@ -11,11 +11,14 @@ func _ready() -> void:
 	EventBus.subscribe("move_to_room_direction", self, "on_move_to_room_direction")
 	EventBus.subscribe("change_door_status",self,"on_change_door_status")
 	EventBus.subscribe("move_to_position", self, "on_move_to_position")
+	EventBus.subscribe("replenish_ammo", self, "on_replenish_ammo")
+	EventBus.subscribe("unlocked_word", self, "on_unlocked_word")
+	EventBus.subscribe("keycard_collected", self, "on_keycard_collected")
 	
 	astargrid = AStarGrid2D.new()
 	astargrid.size = Vector2i(1000,1000)
 	astargrid.cell_size = Vector2i(1,1)
-	astargrid.diagonal_mode = 2
+	astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 	astargrid.update()
 	
 	for solid_tile in StaticTiles:
@@ -123,3 +126,16 @@ func on_change_door_status(flags):
 	var inst = flags[0]
 	var boolean = flags[1]
 	set_blocking_node(inst,boolean)
+
+func on_replenish_ammo(flags):
+	var OpacityTween = create_tween()
+	OpacityTween.tween_property($CurrentScene/NewAmmo, "modulate:a", 0.0,4.3).from(1.0)
+	$CurrentScene/UnlockAmmo.play()
+
+func on_unlocked_word(flags):
+	var OpacityTween = create_tween()
+	OpacityTween.tween_property($CurrentScene/NewWord, "modulate:a", 0.0,4.3).from(1.0)
+	$CurrentScene/UnlockWord.play()
+
+func on_keycard_collected(flags):
+	$CurrentScene/KeyCardCollected.play()

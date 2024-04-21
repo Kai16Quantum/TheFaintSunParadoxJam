@@ -7,7 +7,7 @@ var target_light_scale = Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
 var spike_trap_amount = 0;
 var decoy_trap_amount = 0;
 var explosive_trap_amount = 0;
-var bullet_amount = 100
+var bullet_amount = 3
 #var spike_scene = preload()
 
 
@@ -31,8 +31,6 @@ func _input(event: InputEvent) -> void:
 			$ActivatePopupSFX.play()
 			target_interactable.interact(self)
 			target_interactable = null
-	if event.is_action_pressed("trap_menu"):
-		$TrapMenu.show()
 
 func move_action(walk_array):
 	emit_signal("show_selection_tile",get_parent().get_parent().get_parent().get_global_position_from_tile(walk_array[-1])) 
