@@ -33,3 +33,4 @@ func on_add_blood_splatter(flags):
 	for splat_pos in splatter_positions:
 		var random_splat_tile = [Vector2i(11,5), Vector2i(12,5)].pick_random()
 		set_cell(4, splat_pos+get_used_rect().position, source_id, random_splat_tile)
+

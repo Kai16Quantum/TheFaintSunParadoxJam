@@ -15,6 +15,9 @@ func process(delta: float) -> void:
 func walk():
 	pass
 
+func take_damage():
+	pass
+
 func enter():
 	pass
 

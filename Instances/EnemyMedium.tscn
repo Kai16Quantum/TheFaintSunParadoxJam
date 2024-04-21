@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0ur5m84u50pt"]
+
+[ext_resource type="PackedScene" uid="uid://dd66y5icumiay" path="res://Instances/enemy.tscn" id="1_uymyx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gdbjc"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljkow"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_gdbjc")
+region = Rect2(90, 80, 10, 10)
+
+[node name="EnemyMedium" instance=ExtResource("1_uymyx")]
+first_player_spotted_word_unlock = ""
+
+[node name="Sprite" parent="." index="0"]
+texture = SubResource("AtlasTexture_ljkow")
+
+[node name="Patrol" parent="AI" index="3"]
+patrol_points_relative = [Vector2(0, 0)]
+
+[connection signal="timeout" from="Walk" to="AI" method="_on_walk_timeout"]

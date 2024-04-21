@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyb0heq8qeyjn"]
+
+[ext_resource type="PackedScene" uid="uid://q00atex0a876" path="res://Scenes/interactable_1.tscn" id="1_cut7y"]
+[ext_resource type="Script" path="res://Instances/vent.gd" id="2_ehtti"]
+[ext_resource type="Texture2D" uid="uid://37jxkyou1hqo" path="res://Sprites/Tileset.png" id="2_qytaq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rteuy"]
+atlas = ExtResource("2_qytaq")
+region = Rect2(20, 20, 10, 10)
+
+[node name="Interactable1" instance=ExtResource("1_cut7y")]
+script = ExtResource("2_ehtti")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_rteuy")
+
+[node name="PlayerPosition" type="Marker2D" parent="." index="1"]
+
+[node name="CameraPosition" type="Marker2D" parent="." index="2"]

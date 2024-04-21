@@ -1,16 +1,24 @@
 extends Node
 
-@export var initial_state : State
+var initial_state : String = "Wander"
 var states = {}
 var current_state : State = null
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+
+func initialize():
 	for child in get_children():
 		states[child.name] = child
 		child.transitioned_state.connect(on_transtioned_state)
 	if initial_state:
-		initial_state.enter()
-		current_state = initial_state
+		
+		states[initial_state].enter()
+		current_state = states[initial_state]
+	
+func enter():
+	var parent = get_parent().get_parent()
+	parent.talk(parent.first_player_spotted_text)
+
+func take_damage():
+	current_state.take_damage()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

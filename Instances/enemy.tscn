@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dd66y5icumiay"]
+[gd_scene load_steps=15 format=3 uid="uid://dd66y5icumiay"]
 
 [ext_resource type="PackedScene" uid="uid://pxu051103mct" path="res://Instances/grid_instance.tscn" id="1_nloao"]
 [ext_resource type="Script" path="res://Instances/Enemy.gd" id="2_3l4tg"]
@@ -8,11 +8,12 @@
 [ext_resource type="Script" path="res://Instances/AI/Idle.gd" id="6_28oi5"]
 [ext_resource type="Script" path="res://Instances/AI/Patrol.gd" id="7_rno3w"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_env2h"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gycyd"]
 load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_as5sa"]
-atlas = SubResource("CompressedTexture2D_env2h")
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4n0x"]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_gycyd")
 region = Rect2(90, 70, 10, 10)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4q1fu"]
@@ -23,12 +24,17 @@ region = Rect2(90, 70, 10, 10)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b7n5r"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hbomi"]
+
 [node name="Enemy" groups=["Enemy"] instance=ExtResource("1_nloao")]
 script = ExtResource("2_3l4tg")
+first_player_spotted_text = ""
+first_player_spotted_word_unlock = ""
+initial_state = "Wander"
 move_delay = 0.3
 
 [node name="Sprite" parent="." index="0"]
-texture = SubResource("AtlasTexture_as5sa")
+texture = SubResource("AtlasTexture_a4n0x")
 
 [node name="CheckIfPlayerTimer" type="Timer" parent="." index="2"]
 autostart = true
@@ -46,9 +52,15 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_b7n5r")
 button_mask = 2
 flat = true
 
-[node name="AI" type="Node" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="DoorHitbox" type="Area2D" parent="." index="6"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorHitbox" index="0"]
+shape = SubResource("RectangleShape2D_hbomi")
+
+[node name="AI" type="Node" parent="." index="7"]
 script = ExtResource("3_varye")
-initial_state = NodePath("Patrol")
 
 [node name="Wander" type="Node" parent="AI" index="0"]
 script = ExtResource("4_g7jot")
@@ -61,7 +73,6 @@ script = ExtResource("6_28oi5")
 
 [node name="Patrol" type="Node" parent="AI" index="3"]
 script = ExtResource("7_rno3w")
-patrol_points_relative = [Vector2i(0, 4), Vector2i(0, 0), Vector2i(0, -4)]
 
 [connection signal="timeout" from="Walk" to="AI" method="_on_walk_timeout"]
 [connection signal="timeout" from="CheckIfPlayerTimer" to="AI/Wander" method="_on_check_if_player_timer_timeout"]

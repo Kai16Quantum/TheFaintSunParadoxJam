@@ -1,6 +1,6 @@
 extends Node
 
-@export var events_at_once = 300
+@export var events_at_once = 500
 
 enum PROCESSING_MODE {IDLE, PHYSICS}
 @export var processing_mode : int = 0

@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		$InteractSprite.hide()
 		if is_instance_valid(target_interactable):
-			target_interactable.interact()
+			target_interactable.interact(self)
 			target_interactable = null
 	if event.is_action_pressed("trap_menu"):
 		$TrapMenu.show()

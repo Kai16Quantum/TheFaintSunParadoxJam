@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdqv0cn10m036"]
+[gd_scene load_steps=4 format=3 uid="uid://cdqv0cn10m036"]
 
 [ext_resource type="PackedScene" uid="uid://dd66y5icumiay" path="res://Instances/enemy.tscn" id="1_6ka55"]
 
-[node name="Enemy" instance=ExtResource("1_6ka55")]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v5y8g"]
+load_path = "res://.godot/imported/Tileset.png-1a414b7107dec576154e767e32be6ae4.ctex"
 
-[connection signal="timeout" from="Walk" to="AI" method="_on_walk_timeout"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_28tld"]
+atlas = SubResource("CompressedTexture2D_v5y8g")
+region = Rect2(40, 90, 10, 10)
+
+[node name="Enemy" instance=ExtResource("1_6ka55")]
+first_player_spotted_word_unlock = ""
+
+[node name="Sprite" parent="." index="0"]
+texture = SubResource("AtlasTexture_28tld")

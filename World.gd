@@ -8,6 +8,8 @@ var changing_room = false
 func _ready() -> void:
 	randomize()
 	EventBus.subscribe("move_to_room_direction", self, "on_move_to_room_direction")
+	EventBus.subscribe("change_door_status",self,"on_change_door_status")
+	EventBus.subscribe("move_to_position", self, "on_move_to_position")
 	
 	astargrid = AStarGrid2D.new()
 	astargrid.size = Vector2i(1000,1000)
@@ -18,12 +20,7 @@ func _ready() -> void:
 	for solid_tile in StaticTiles:
 		astargrid.set_point_solid(solid_tile)
 	for solid_object in $Props.get_children():
-		var solid_ground = get_tile_from_position(solid_object.global_position)
-		astargrid.set_point_solid(solid_ground)
-		if solid_object.get("extra_points_relative"):
-			if len(solid_object.extra_points_relative) > 0:
-				for point in solid_object.extra_points_relative:
-					astargrid.set_point_solid(solid_ground+point)
+		set_blocking_node(solid_object, true)
 		
 	
 	Global.astargrid = astargrid
@@ -31,6 +28,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func set_blocking_node(solid_object, boolean = true):
+	var solid_ground = get_tile_from_position(solid_object.global_position)
+	astargrid.set_point_solid(solid_ground,boolean)
+	if solid_object.get("extra_points_relative"):
+		if len(solid_object.extra_points_relative) > 0:
+			for point in solid_object.extra_points_relative:
+				astargrid.set_point_solid(solid_ground+point, boolean)
 
 func get_tilemap(index):
 	var tilemap = $TileMap.get_used_cells(index)
@@ -62,7 +67,7 @@ func on_move_to_room_direction(flags):
 	var target_direction = flags[1]
 	if !changing_room:
 		var screen_tween = create_tween()
-		screen_tween.tween_property($CurrentScene, "position", 
+		screen_tween.tween_property($CurrentScene, "global_position", 
 		target_position, 1.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 		#Let's normalize it.
 		var move_direction = Vector2i(target_direction)
@@ -71,6 +76,9 @@ func on_move_to_room_direction(flags):
 		$Other/ChangeRoomTimer.start()
 		changing_room = true
 
+func on_move_to_position(target_position):
+	var move_tween = create_tween()
+	move_tween.tween_property($CurrentScene, "global_position", Vector2(target_position), 0.5).set_trans(Tween.TRANS_QUAD)
 
 func _on_change_room_timer_timeout() -> void:
 	changing_room = false
@@ -84,3 +92,8 @@ func _on_player_show_selection_tile(target_global_coord: Variant) -> void:
 
 func _on_player_stopped_walking() -> void:
 	$SelectedTile.hide()
+
+func on_change_door_status(flags):
+	var inst = flags[0]
+	var boolean = flags[1]
+	set_blocking_node(inst,boolean)

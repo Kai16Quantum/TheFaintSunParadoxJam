@@ -201,4 +201,9 @@ libraries = {
 "": SubResource("AnimationLibrary_cqk4n")
 }
 
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="Walk" to="." method="_on_walk_timeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]

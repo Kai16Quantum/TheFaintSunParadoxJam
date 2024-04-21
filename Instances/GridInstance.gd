@@ -6,10 +6,11 @@ var walk_array = []
 var next_point = null
 var my_tile_position: Vector2i = position
 var starting_tile = Vector2i.ZERO
+var attack_cooldown = false
 @export var max_health: int = 3
 var dead = false
+@export var breakable_decor = false
 @onready var health: int = max_health
-@export var enemy = false
 @export var move_delay = 0.2
 @onready var default_sprite_region = $Sprite.texture.region
 
@@ -49,7 +50,7 @@ func move_action(walk_array):
 
 func change_sprite(string_name : String):
 	var my_atlas = $Sprite.texture
-	if !dead:
+	if !dead && !breakable_decor:
 		match string_name:
 			"Attack":
 				my_atlas.region.position = default_sprite_region.position + Vector2(10,0)
@@ -61,30 +62,44 @@ func change_sprite(string_name : String):
 				my_atlas.region.position = default_sprite_region.position
 
 func collide_with_entity(entity):
-	if !dead:
+	if !dead && !breakable_decor:
+		walk_array.insert(0,entity.my_tile_position)
 		if entity.is_in_group("Player") && self.is_in_group("Enemy"):
 			melee_attack(entity)
 		elif entity.is_in_group("Enemy") && self.is_in_group("Player"):
 			melee_attack(entity)
 
 func melee_attack(instance):
-	$AnimationPlayer.play("melee")
-	instance.take_damage(1)
+	if !attack_cooldown:
+		attack_cooldown = true
+		$AnimationPlayer.play("melee")
+		instance.take_damage(1)
+		$AttackCooldown.start()
 
-func take_damage_action():
-	pass
 
 func take_damage(damage_amount):
 	if !dead:
 		$AnimationPlayer.play("take_damage")
 		var new_health = health-damage_amount
 		health = max(0,new_health)
+		take_damage_action()
 		if new_health <= 0:
+			dead_action()
 			change_sprite("Dead")
 			dead = true
 			walk_array = []
-			EventBus.publish("add_blood_splatter", [my_tile_position,damage_amount])
-	
+			if !breakable_decor:
+				EventBus.publish("add_blood_splatter", [my_tile_position,damage_amount])
+
+func dead_action():
+	pass
+
+func take_damage_action():
+	pass
+
+func talk(talk_string, talk_audio = null):
+	if (talk_string != ""):
+		EventBus.publish("show_text", [talk_string, talk_audio, is_in_group("Enemy")])
 
 func check_if_moving_into_instance():
 	var groups = ["Player", "Enemy"]
@@ -122,7 +137,7 @@ func after_walk():
 	pass
 
 func walk():
-	if !dead:
+	if !dead && !breakable_decor:
 		my_tile_position = get_tile_position()
 		if len(walk_array) > 0:
 			move_action(walk_array)
@@ -134,8 +149,13 @@ func walk():
 				var pos_tween = create_tween()
 				var next_pos = get_parent().get_parent().get_parent().get_global_position_from_tile(next_point) # Y ME LA SUDAAA!
 				pos_tween.tween_property(self, "global_position", Vector2(next_pos), 0.1).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-			else: collide_with_entity(inst_collide)
+			else: 
+					collide_with_entity(inst_collide)
 		else:
 			after_walk()
 
 
+
+
+func _on_attack_cooldown_timeout() -> void:
+	attack_cooldown = false
