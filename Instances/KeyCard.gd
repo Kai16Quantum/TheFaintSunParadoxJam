@@ -1,6 +1,5 @@
-extends Area2D
+extends Node2D
 
-@export var trigger_direction : Vector2i = Vector2i(1,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +11,7 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_area_entered(area: Area2D) -> void:
-	var pixel_perfect_position = round($CameraPosition.global_position/10.0)*10.0
+func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("Player"):
-		EventBus.publish("move_to_room_direction", [pixel_perfect_position, trigger_direction])
+		EventBus.publish("keycard_collected")
+		queue_free()

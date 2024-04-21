@@ -21,3 +21,5 @@ res://World.gd
 res://Instances/Enemy.gd
 res://Instances/EnemyMedium.tscn
 res://Instances/Box.gd
+res://Instances/KeyCard.gd
+res://Instances/RayMachine.gd

@@ -7,7 +7,7 @@ var target_light_scale = Vector2(randf_range(0.95,1.05),randf_range(0.95,1.05))
 var spike_trap_amount = 0;
 var decoy_trap_amount = 0;
 var explosive_trap_amount = 0;
-var bullet_amount = 1
+var bullet_amount = 100
 #var spike_scene = preload()
 
 

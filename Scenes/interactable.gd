@@ -2,7 +2,7 @@ extends Area2D
 class_name Interactable
 
 @export_multiline var interaction_text = ""
-@export_multiline var interaction_audio = null
+@export var interaction_audio : AudioStream = null
 @export var enemy : bool = false
 @export var unlock_word = ""
 @export var one_shot_dialogue = true 
