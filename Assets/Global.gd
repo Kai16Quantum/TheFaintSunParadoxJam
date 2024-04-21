@@ -3,7 +3,7 @@ extends Node
 var astargrid
 var alien_word_list = [
 	"ME", "YOU", "RUN", "FIGHT", "HELP", "NO", "AWAY", "GO", "PLEASE", "DEAD", "ALIVE", "ALLOW",
-	"SHIP", "WAY", "PLANT", "INSIDE", "STAR", "SPACE", "POWER", "CONTROLS", "ESCAPE", "VOID", "MORE", "KILL", "SURVIVE", "ZERO"
+	"SHIP", "WAY", "PLANT", "INSIDE", "STAR", "SPACE", "POWER", "CONTROLS", "ESCAPE", "VOID", "MORE", "KILL", "SURVIVE"
 ]
 var unlocked_alien_word_list = ["ME","YOU","NO","PLEASE"]
 var restart_count = 0

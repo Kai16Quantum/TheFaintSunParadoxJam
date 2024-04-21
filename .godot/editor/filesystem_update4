@@ -12,3 +12,5 @@ res://Scenes/Label.gd
 res://Instances/GridInstance.gd
 res://Instances/Box.tscn
 res://Assets/Global.gd
+res://Scenes/FinalCutscene.gd
+res://game.gd

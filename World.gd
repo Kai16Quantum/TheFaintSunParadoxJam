@@ -37,6 +37,8 @@ func play_restart_audio():
 	var audio_file = null
 	var text = []
 	match Global.restart_count:
+		0:
+			pass
 		1: 
 			audio_file = "res://Assets/Sounds/VA/Text2.wav"
 			text = [
@@ -52,9 +54,19 @@ func play_restart_audio():
 				"that will never",
 				"be again."
 			]
+		_:
+			var options = [
+				["This again?"],
+				["I'm tired of this."],
+				["Hold on... I've been here before."],
+				["What happened last time?"],
+				["Deja-vu?"]
+			]
+			text = options.pick_random()
 	if audio_file:
 		EventBus.publish("show_text",[text,load(audio_file),false])
-	
+	else:
+		EventBus.publish("show_text",[text,null,false])
 
 func play_intro():
 	$Other/Intro.play("Intro")

@@ -130,7 +130,7 @@ tracks/6/path = NodePath("../Instances/Ally/Player:process_mode")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 1.9, 1.95862),
+"times": PackedFloat32Array(0, 1.9, 1.95),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
@@ -905,7 +905,7 @@ tracks/1/path = NodePath("../../Instances/Ally/Player:process_mode")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 24.7),
+"times": PackedFloat32Array(0.1, 24.7),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [4, 4]
@@ -917,10 +917,10 @@ tracks/2/path = NodePath("EnemyMedium6:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.3, 0.4, 0.5, 0.9, 1, 1.1, 2.3, 2.4, 2.58, 2.8, 2.9, 3.1, 3.31, 3.5, 3.7, 3.8, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.3, 0.4, 0.5, 0.9, 1, 1.1, 2.3, 2.4, 2.5, 5.9, 18.1, 18.5, 19.1, 20.0855, 21.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -58), Vector2(0, -62), Vector2(0, -58), Vector2(0, -58), Vector2(0, -62), Vector2(0, -58), Vector2(0, -58), Vector2(-3.00001, -58), Vector2(10, -58), Vector2(10, -58), Vector2(10, -60), Vector2(10, -38), Vector2(10, -38), Vector2(0, -38), Vector2(0, -38), Vector2(0, -44), Vector2(0, 17)]
+"values": [Vector2(0, -58), Vector2(0, -62), Vector2(0, -58), Vector2(0, -58), Vector2(0, -62), Vector2(0, -58), Vector2(0, -58), Vector2(-3.00001, -58), Vector2(0.99999, -56), Vector2(0.99999, -35), Vector2(0.99999, -35), Vector2(21, -35), Vector2(9.99999, -35), Vector2(9.99999, -35), Vector2(0.99999, -35)]
 }
 tracks/3/type = "method"
 tracks/3/imported = false
@@ -958,7 +958,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(5.9, 10.7, 14, 19.4, 21.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "values": [{
-"args": ["The  controls are dead.", false],
+"args": ["The controls are dead.", false],
 "method": &"talk"
 }, {
 "args": ["I should start facing death.", false],
@@ -970,7 +970,7 @@ tracks/4/keys = {
 "args": ["I need to let go.", false],
 "method": &"talk"
 }, {
-"args": ["The Flaming Star looks impressive, doesn't it?", false],
+"args": ["...", false],
 "method": &"talk"
 }]
 }
@@ -1033,10 +1033,10 @@ tracks/8/path = NodePath("../../CurrentScene:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 6.1, 18.1, 22.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 6.1, 19.8),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(478, -353), Vector2(478, -385), Vector2(478, -385), Vector2(478, -414)]
+"values": [Vector2(478, -353), Vector2(478, -385), Vector2(478, -401)]
 }
 tracks/9/type = "audio"
 tracks/9/imported = false
@@ -1057,6 +1057,30 @@ tracks/9/keys = {
 "times": PackedFloat32Array(10.6, 13.7)
 }
 tracks/9/use_blend = true
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../Instances/Ally/Player:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 8.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../../Instances/Ally/Player:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.1, 8.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_5e28t"]
 length = 0.001
@@ -1083,6 +1107,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Instances/Ally/Player:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../Instances/Ally/Player:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pptdc"]
@@ -1124,7 +1172,6 @@ stretch_mode = 1
 [node name="Other" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Other"]
-visible = false
 color = Color(0.0392157, 0.0392157, 0.0392157, 1)
 
 [node name="ChangeRoomTimer" type="Timer" parent="Other"]
@@ -1160,7 +1207,7 @@ layer_5/tile_data = PackedInt32Array()
 script = ExtResource("4_o2qpm")
 
 [node name="CurrentScene" type="Node2D" parent="."]
-position = Vector2(-33, 6)
+position = Vector2(-51, 7)
 
 [node name="Camera2D" type="Camera2D" parent="CurrentScene"]
 zoom = Vector2(7, 7)
@@ -1289,6 +1336,30 @@ texture = SubResource("AtlasTexture_mvtal")
 [node name="Area2D" type="Area2D" parent="OtherNodes/AmmoBox"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OtherNodes/AmmoBox/Area2D"]
+shape = SubResource("RectangleShape2D_p0yx7")
+
+[node name="AmmoBox6" type="Node2D" parent="OtherNodes"]
+position = Vector2(248, 76)
+script = ExtResource("5_ip3lx")
+
+[node name="Sprite2D" type="Sprite2D" parent="OtherNodes/AmmoBox6"]
+texture = SubResource("AtlasTexture_mvtal")
+
+[node name="Area2D" type="Area2D" parent="OtherNodes/AmmoBox6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherNodes/AmmoBox6/Area2D"]
+shape = SubResource("RectangleShape2D_p0yx7")
+
+[node name="AmmoBox7" type="Node2D" parent="OtherNodes"]
+position = Vector2(648, -234)
+script = ExtResource("5_ip3lx")
+
+[node name="Sprite2D" type="Sprite2D" parent="OtherNodes/AmmoBox7"]
+texture = SubResource("AtlasTexture_mvtal")
+
+[node name="Area2D" type="Area2D" parent="OtherNodes/AmmoBox7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherNodes/AmmoBox7/Area2D"]
 shape = SubResource("RectangleShape2D_p0yx7")
 
 [node name="AmmoBox2" type="Node2D" parent="OtherNodes"]
@@ -1729,7 +1800,8 @@ shape = SubResource("RectangleShape2D_np48o")
 
 [node name="Vent4" parent="Props" instance=ExtResource("9_cgfec")]
 position = Vector2(258, 86)
-interaction_text = "A broken escape route."
+interaction_text = "A broken ESCAPE route."
+unlock_word = "ESCAPE"
 one_shot_dialogue = false
 
 [node name="CameraPosition" parent="Props/Vent4" index="2"]
@@ -2581,6 +2653,14 @@ unlock_word = "GO"
 [node name="CollisionShape2D" parent="Dialogues/Interactable9" index="0"]
 shape = SubResource("RectangleShape2D_ybkc8")
 
+[node name="Interactable14" parent="Dialogues" instance=ExtResource("5_d64d4")]
+position = Vector2(613, -180)
+interaction_text = "There has to be MORE than meets the eye to this creature."
+unlock_word = "MORE"
+
+[node name="CollisionShape2D" parent="Dialogues/Interactable14" index="0"]
+shape = SubResource("RectangleShape2D_ybkc8")
+
 [node name="SelectedTile" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(-2, -4)
@@ -2899,7 +2979,7 @@ shape = SubResource("RectangleShape2D_7yb8v")
 volume_db = -13.938
 
 [node name="TextureRect" type="TextureRect" parent="FloorActivators/FinalCutscene"]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
 self_modulate = Color(1, 1, 1, 0)
 z_index = 1050
 offset_left = -223.0
@@ -2912,9 +2992,9 @@ texture = ExtResource("1_6tcyx")
 z_index = 1385
 material = SubResource("CanvasItemMaterial_x41hq")
 offset_left = -129.0
-offset_top = -105.0
+offset_top = -108.0
 offset_right = 129.0
-offset_bottom = -50.0
+offset_bottom = -53.0
 mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("2_xudtc")
 theme_override_font_sizes/normal_font_size = 16
@@ -2923,14 +3003,15 @@ bbcode_enabled = true
 [node name="Words" type="RichTextLabel" parent="FloorActivators/FinalCutscene"]
 z_index = 1385
 material = SubResource("CanvasItemMaterial_x41hq")
-offset_left = -126.0
-offset_top = -37.0
-offset_right = 126.0
-offset_bottom = 37.0
+offset_left = -131.0
+offset_top = -55.0
+offset_right = 133.0
+offset_bottom = 17.0
 mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("2_xudtc")
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
+scroll_active = false
 
 [node name="FloorActivator" parent="FloorActivators" instance=ExtResource("25_eodgt")]
 position = Vector2(268, -310)
@@ -2976,6 +3057,8 @@ text_string_array = Array[String](["I should be careful now."])
 [connection signal="timeout" from="CurrentScene/EnemyLabel/DeleteTimer" to="CurrentScene/EnemyLabel" method="_on_delete_timer_timeout"]
 [connection signal="timeout" from="CurrentScene/EnemyLabel/NextTextTimer" to="CurrentScene/EnemyLabel" method="_on_next_text_timer_timeout"]
 [connection signal="area_entered" from="OtherNodes/AmmoBox/Area2D" to="OtherNodes/AmmoBox" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="OtherNodes/AmmoBox6/Area2D" to="OtherNodes/AmmoBox6" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="OtherNodes/AmmoBox7/Area2D" to="OtherNodes/AmmoBox7" method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="OtherNodes/AmmoBox2/Area2D" to="OtherNodes/AmmoBox2" method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="OtherNodes/AmmoBox3/Area2D" to="OtherNodes/AmmoBox3" method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="OtherNodes/AmmoBox4/Area2D" to="OtherNodes/AmmoBox4" method="_on_area_2d_area_entered"]
@@ -3120,6 +3203,7 @@ text_string_array = Array[String](["I should be careful now."])
 [editable path="Dialogues/Interactable4"]
 [editable path="Dialogues/Interactable5"]
 [editable path="Dialogues/Interactable9"]
+[editable path="Dialogues/Interactable14"]
 [editable path="Instances/Enemies/Enemy"]
 [editable path="Instances/Enemies/Enemy2"]
 [editable path="Instances/Enemies/Enemy4"]
